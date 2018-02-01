@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppsFinance", "AppsFinance\AppsFinance.csproj", "{F175301A-95AC-4B36-A668-6BFE3D4D5204}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppsFinance.Data", "SpaDataMigration.Data\AppsFinance.Data.csproj", "{0ADD9A9E-E864-49CA-973E-6D5E5CD700FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppsFinance.Entity", "SpaDataMigration.Entity\AppsFinance.Entity.csproj", "{1FC415C4-6E98-4012-90E4-583AE99842B2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F175301A-95AC-4B36-A668-6BFE3D4D5204}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F175301A-95AC-4B36-A668-6BFE3D4D5204}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F175301A-95AC-4B36-A668-6BFE3D4D5204}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F175301A-95AC-4B36-A668-6BFE3D4D5204}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ADD9A9E-E864-49CA-973E-6D5E5CD700FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ADD9A9E-E864-49CA-973E-6D5E5CD700FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ADD9A9E-E864-49CA-973E-6D5E5CD700FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ADD9A9E-E864-49CA-973E-6D5E5CD700FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FC415C4-6E98-4012-90E4-583AE99842B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FC415C4-6E98-4012-90E4-583AE99842B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FC415C4-6E98-4012-90E4-583AE99842B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FC415C4-6E98-4012-90E4-583AE99842B2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
