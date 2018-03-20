@@ -30,7 +30,7 @@ namespace AppsFinance
                 {
 
                     Console.WriteLine("***************************************************************************");
-                    Console.WriteLine("***Process: " + procedures[(int)ii] + " started                   **************************");
+                    Console.WriteLine("***Process: " + procedures[(int)ii] + " started      **********************");
                     Console.WriteLine("---------------------------------------------------------------------------");
 
                     MigrateData dataMigrator = new MigrateData(Country.PRI, ENVVAR.PRI);
@@ -43,7 +43,7 @@ namespace AppsFinance
                         );
 
                     Console.WriteLine("***************************************************************************");
-                    Console.WriteLine("***Process: " + procedures[(int)ii] + " ended                     **************************");
+                    Console.WriteLine("***Process: " + procedures[(int)ii] + " ended    **************************");
                     Console.WriteLine("---------------------------------------------------------------------------");
                 }, i);
 
@@ -55,7 +55,7 @@ namespace AppsFinance
             {
                 //tareas comunes
                 Task.WaitAll(datamovers);
-
+                
                 Console.WriteLine("Cleaning heavy tables");
                 new MigrateData(Country.PRI, ENVVAR.PRI).DeleteCustCollectorPayment();
                 //hevier tasks
@@ -121,11 +121,11 @@ namespace AppsFinance
                     Console.WriteLine("Exception type {0}", inner.GetType());
                 }
 
-                SendNotification("ERROR: (PR) APPFINANCE", except.Message);
+                SendNotification("ERROR: (PR) APPFINANCE", string.Format("Error: {0} \nDetalles: {1}", except.Message, except.StackTrace));
             }
             catch(Exception except)
             {
-                SendNotification("ERROR: (PR) APPFINANCE", except.Message);
+                SendNotification("ERROR: (PR) APPFINANCE", string.Format("Error: {0} \nDetalles: {1}", except.Message, except.StackTrace));
             }
         }
 

@@ -147,8 +147,19 @@ namespace AppsFinance.Data
 
             try
             {
-                reader = this.oraclebasicOperations.ExecuteDataReader("pkg_appsfinance_" + this.Envvar.ToString() + ".sp_get_payment_info", prm, CommandType.StoredProcedure, Schema.APPS, this.Country);
-                createdStatements = CreateCviewerPaymentDetailStatement(reader);
+                switch (this.Envvar)
+                {
+                    case ENVVAR.PRI:
+                        reader = this.oraclebasicOperations.ExecuteDataReader("pkg_appsfinance_" + this.Envvar.ToString() + ".sp_get_payment_info", prm, CommandType.StoredProcedure, Schema.APPS, this.Country);
+                        createdStatements = CreateCviewerPaymentDetailStatementPRI(reader);
+                        break;
+                    case ENVVAR.DOM:
+                        reader = this.oraclebasicOperations.ExecuteDataReader("pkg_appsfinance_" + this.Envvar.ToString() + ".sp_get_payment_info", prm, CommandType.StoredProcedure, Schema.APPS, this.Country);
+                        createdStatements = CreateCviewerPaymentDetailStatementDOM(reader);
+                        break;
+                    default:
+                        break;
+                }                
             }
             catch (SqlException except)
             {
@@ -478,7 +489,7 @@ namespace AppsFinance.Data
             return statements;
         }
 
-        public List<string> CreateCviewerPaymentDetailStatement(OracleDataReader reader)
+        public List<string> CreateCviewerPaymentDetailStatementPRI(OracleDataReader reader)
         {
             List<string> statements = new List<string>();
             string statement = string.Empty;
@@ -488,6 +499,52 @@ namespace AppsFinance.Data
                 while (reader.Read())
                 {
                     statement += "select " + reader["account_number"] + " AS account_number, '" + CleanCustormerName(reader["receipt"].ToString()) + "' AS receipt, '" + reader["deposit_date"] + "' AS deposit_date, " + reader["amount"] + " AS amount, '" + reader["status"] + "' AS status, '" + CleanCustormerName(reader["source"].ToString()) + "' AS source from dual union ";
+
+                    count += 1;
+                    if (count == 1000)
+                    {
+                        count = 0;
+                        statements.Add(statement.Substring(0, statement.Length - 7));
+                        statement = string.Empty;
+                    }
+                }
+
+                if (count > 0 && count < 1000)
+                {
+                    statements.Add(statement.Substring(0, statement.Length - 7));
+                    statement = string.Empty;
+                }
+
+
+            }
+            catch (Exception except)
+            {
+                throw except;
+
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+
+                oraclebasicOperations.CloseConnection();
+            }
+
+            return statements;
+        }
+
+        public List<string> CreateCviewerPaymentDetailStatementDOM(OracleDataReader reader)
+        {
+            List<string> statements = new List<string>();
+            string statement = string.Empty;
+            int count = 0;
+            try
+            {
+                while (reader.Read())
+                {
+                    statement += "select " + reader["subscr_id"] + " AS subscr_id, " + reader["collector_id"] + " AS collector_id, '" + CleanCustormerName(reader["profile_name"].ToString()) + "' AS profile_name, '" + reader["collector_name"] + "' AS collector_name, '" + reader["due_date"] + "' AS due_date, '" + reader["gl_date"] + "' AS gl_date, '" + reader["pay_date"] + "' AS pay_date, " + reader["monto"] + " AS monto from dual union ";
 
                     count += 1;
                     if (count == 1000)
